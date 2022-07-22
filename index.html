@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="front">
+                <div class="img">
+                    <img src="images.png" alt="">
+                    <img src="download-visa-la-perle-visa-card-logo-white-clipart-png-download-pikpng.png" alt="">
+                </div>
+                <div id="card-numberbox" class="card-numberbox">
+                    ####&nbsp;&nbsp;####&nbsp; &nbsp;####&nbsp; &nbsp;####
+                </div>
+                <div class="flexbox">
+                    <span>cardholder name</span>
+                    <span>expires:</span>
+                    <div class="card-holdername">
+                        <span id="card-holdername">
+                            ****
+                        </span>
+                    </div>
+                    <div class="expiresbox">
+                        <span id="year">yy</span>
+                        <span>/</span>
+                        <span id="month">mm</span>
+                    </div>
+                </div>
+                </div>
+                <div class="back">
+                    <div class="black"></div>
+                    <div class="cvv2">
+                        <span>cvv2:</span>
+                        <div id="cvv2" class="white"></div>
+                    </div>
+                    <img src="download-visa-la-perle-visa-card-logo-white-clipart-png-download-pikpng.png" alt="">
+                </div>
+                <div class="img"></div>
+
+            </div>
+
+
+            <div class="form">
+                <div>
+                    <label for="numbercard-input">card number</label>
+                    <input id="numbercard-input" type="text" >
+                </div>
+                <div>
+                    <label for="card-holdername-input">holder name</label>
+                    <input type="text" id="card-holdername-input">
+                </div>
+                <div class="flex">
+                   <div class="label"> <label for="year">year</label>
+                    <label for="month">month</label>
+                    <label for="cvv2-input" >cvv2</label>
+                </div>
+                    <br>
+                    <select name="year" id="year-input">
+                        <option value="year" selected disabled>2022</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                    </select>
+                 
+                    <select name="month" id="month-input">
+                        <option value="month" selected disabled>month</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+
+                    
+                    <input id="cvv2-input" maxlength="4" type="text">
+                </div>
+                <input type="submit" id="send" value="send">
+            </div>
+        </div>
+</body>
+<script>
+    let _numbercard=document.getElementById("card-numberbox")
+    let _numbercard_input=document.getElementById("numbercard-input")
+
+    _numbercard_input.oninput = () => {
+        _numbercard_input.style.animationName=""
+        console.log("flag"+_numbercard_input.value.search(/[A-Z]/i))
+      if(_numbercard_input.value.search(/[A-Z]/i)<0){
+        if( _numbercard_input.value.length<17){
+        _numbercard.innerHTML = _numbercard_input.value.slice(0,4)+"&nbsp;&nbsp;"+_numbercard_input.value.slice(4,8)+"&nbsp;&nbsp;"+_numbercard_input.value.slice(8,12)+"&nbsp;&nbsp;"+_numbercard_input.value.slice(12,16)
+       }
+       else{
+        document.getElementById("card-holdername-input").focus()
+       }
+      }
+      else{
+       _numbercard_input.style.animationName="error"
+       _numbercard_input.setAttribute("placeholder","!just number")
+       _numbercard_input.value=""
+       _numbercard.innerHTML=""
+      }
+    }
+//    console.log( _numbercard.value.length)
+    document.getElementById("cvv2-input").onmouseenter = () => {
+        
+        document.querySelector(".front").style.transform = "perspective(800px) rotateY(-180deg)"
+        document.querySelector(".back").style.transform = "perspective(800px) rotateY(0deg)"
+    }
+    document.getElementById("cvv2-input").onmouseleave = () => {
+        document.querySelector(".front").style.transform = "perspective(800px) rotateY(0deg)"
+        document.querySelector(".back").style.transform = "perspective(800px) rotateY(180deg)"
+    }
+    document.getElementById("cvv2-input").oninput = () => {
+        document.getElementById("cvv2-input").style.animationName=""
+        if(document.getElementById("cvv2-input").value.search(/[a-z]/i)<0 && document.getElementById("cvv2-input").value.length<5){
+            document.getElementById("cvv2").innerText = document.getElementById("cvv2-input").value;
+        }
+        else if(document.getElementById("cvv2-input").value.search(/[a-z]/i)>=0){
+            document.getElementById("cvv2-input").style.animationName="error"
+            document.getElementById("cvv2-input").setAttribute("placeholder","!just number")
+            document.getElementById("cvv2-input").value=""
+            document.getElementById("cvv2").innerHTML=""
+      }
+
+    }
+    document.getElementById("month-input").oninput = () => {
+        document.getElementById("month").innerText = document.getElementById("month-input").value;
+    }
+    document.getElementById("year-input").oninput = () => {
+        document.getElementById("year").innerText = document.getElementById("year-input").value.slice(2, 4);
+    }
+    document.getElementById("card-holdername-input").oninput = () => {
+        document.getElementById("card-holdername").innerText = document.getElementById("card-holdername-input").value;
+    }
+
+</script>
+
+</html>
